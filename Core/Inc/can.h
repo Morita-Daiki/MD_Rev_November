@@ -35,7 +35,7 @@ extern CAN_HandleTypeDef hcan;
 /* USER CODE BEGIN Private defines */
 extern CAN_TxHeaderTypeDef TxHeader;
 extern CAN_RxHeaderTypeDef RxHeader;
-#define ID 1
+#define ID 2
 #define TXID (0x200+ID)
 #define RXID ((ID <= 4) ? 0x200 : 0x1ff)
 
