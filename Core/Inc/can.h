@@ -33,13 +33,19 @@
 extern CAN_HandleTypeDef hcan;
 
 /* USER CODE BEGIN Private defines */
-
+extern CAN_TxHeaderTypeDef TxHeader;
+extern CAN_RxHeaderTypeDef RxHeader;
+uint8_t TxData[8];
+uint8_t RxData[8];
+uint32_t TxMailbox;
+uint8_t cnt;
 /* USER CODE END Private defines */
 
 void MX_CAN_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void CAN_Start(void);
+void HAL_CAN_RXFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

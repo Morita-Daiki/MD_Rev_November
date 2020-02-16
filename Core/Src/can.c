@@ -114,7 +114,17 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 } 
 
 /* USER CODE BEGIN 1 */
-
+void CAN_Start(void){
+	HAL_CAN_Start(&hcan);
+	if(HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING)!=HAL_OK){
+		Error_Handler();
+	}
+}
+void HAL_CAN_RXFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan){
+	if(HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData)!=HAL_OK){
+		Error_Handler();
+	}
+}
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
