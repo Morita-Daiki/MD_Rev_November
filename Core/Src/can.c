@@ -48,10 +48,10 @@ void MX_CAN_Init(void) {
 	sFilterConfig.FilterBank = 0;
 	sFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;
 	sFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;
-	sFilterConfig.FilterIdHigh = RxID << 5;
-	sFilterConfig.FilterIdLow = RxID << 5;
-	sFilterConfig.FilterMaskIdHigh = RxID << 5;
-	sFilterConfig.FilterMaskIdLow = RxID << 5;
+	sFilterConfig.FilterIdHigh = rxid << 5;
+	sFilterConfig.FilterIdLow = rxid << 5;
+	sFilterConfig.FilterMaskIdHigh = rxid << 5;
+	sFilterConfig.FilterMaskIdLow = rxid << 5;
 	sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
 	sFilterConfig.FilterActivation = ENABLE;
 	sFilterConfig.SlaveStartFilterBank = 14;
@@ -134,7 +134,7 @@ void HAL_CAN_RXFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	}
 }
 void CAN_Send(void) {
-	TxHeader.StdId = TxID;
+	TxHeader.StdId = txid;
 	TxHeader.RTR = CAN_RTR_DATA;
 	TxHeader.IDE = CAN_ID_STD;
 	TxHeader.DLC = 3;
