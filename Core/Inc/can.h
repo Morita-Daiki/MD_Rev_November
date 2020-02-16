@@ -35,9 +35,10 @@ extern CAN_HandleTypeDef hcan;
 /* USER CODE BEGIN Private defines */
 extern CAN_TxHeaderTypeDef TxHeader;
 extern CAN_RxHeaderTypeDef RxHeader;
-const int id = 1; //1~8
-const uint32_t txid = 0x200 + id;
-const uint32_t rxid = (id <= 4) ? 0x200 : 0x1ff;
+#define ID 1
+#define TXID (0x200+ID)
+#define RXID ((ID <= 4) ? 0x200 : 0x1ff)
+
 uint8_t TxData[8];
 uint8_t RxData[8];
 uint32_t TxMailbox;

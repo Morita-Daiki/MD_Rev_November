@@ -100,10 +100,10 @@ void HAL_DAC_MspDeInit(DAC_HandleTypeDef* dacHandle)
 
 /* USER CODE BEGIN 1 */
 void DAC_Start(void) {
-	HAL_DAC_Start(&hdac1, Channel);
+	HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
 }
 void DAC_Set(uint16_t val) {
-	HAL_DAC_SetValue(hdac, Channel, DAC_ALIGN_12B_R, val);
+	HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, val);
 }
 void DAC_set_voltage(double voltage) {
 	DAC_Set((uint16_t) voltage * (0xfff) / 3.3);
