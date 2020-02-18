@@ -45,7 +45,11 @@ void MX_TIM15_Init(void);
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                         
 /* USER CODE BEGIN Prototypes */
-
+void Encoder_Start(void);
+void Pwm_Start(void);
+void Pwm_Set(unsigned int in1,unsigned int in2);
+void RGB_Set(unsigned int r,unsigned int g,unsigned int b);
+int32_t Encoder_Read(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

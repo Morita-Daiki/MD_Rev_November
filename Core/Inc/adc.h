@@ -34,14 +34,15 @@ extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc2;
 
 /* USER CODE BEGIN Private defines */
-
+static uint16_t adc1_value[2];
+static uint16_t adc2_value[1];
 /* USER CODE END Private defines */
 
 void MX_ADC1_Init(void);
 void MX_ADC2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void ADC_Start(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

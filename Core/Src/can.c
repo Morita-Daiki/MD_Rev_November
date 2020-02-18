@@ -21,6 +21,9 @@
 #include "can.h"
 
 /* USER CODE BEGIN 0 */
+CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+
 /* USER CODE END 0 */
 
 CAN_HandleTypeDef hcan;
@@ -43,20 +46,7 @@ void MX_CAN_Init(void) {
 	if (HAL_CAN_Init(&hcan) != HAL_OK) {
 		Error_Handler();
 	}
-	CAN_FilterTypeDef sFilterConfig;
-	sFilterConfig.FilterBank = 0;
-	sFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;
-	sFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;
-	sFilterConfig.FilterIdHigh = RXID << 5;
-	sFilterConfig.FilterIdLow = RXID << 5;
-	sFilterConfig.FilterMaskIdHigh = RXID << 5;
-	sFilterConfig.FilterMaskIdLow = RXID << 5;
-	sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-	sFilterConfig.FilterActivation = ENABLE;
-	sFilterConfig.SlaveStartFilterBank = 14;
-	if (HAL_CAN_ConfigFilter(&hcan, &sFilterConfig) != HAL_OK) {
-		Error_Handler();
-	}
+
 }
 
 void HAL_CAN_MspInit(CAN_HandleTypeDef *canHandle) {
@@ -136,7 +126,7 @@ void CAN_Send(void) {
 	TxHeader.StdId = TXID;
 	TxHeader.RTR = CAN_RTR_DATA;
 	TxHeader.IDE = CAN_ID_STD;
-	TxHeader.DLC = 3;
+	TxHeader.DLC = 8;
 	TxHeader.TransmitGlobalTime = DISABLE;
 	if (HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox) != HAL_OK) {
 		Error_Handler();
