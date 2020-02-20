@@ -108,21 +108,22 @@ int main(void) {
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	int counter=0;
+	int counter = 0;
 	while (1) {
-		int16_t current = RxData[ID * 2 - 2] << 8 + RxData[ID * 2 - 1] << 0;
+		Pwm_Set(1023, 1000);
+		int16_t current = (RxData[ID * 2 - 2] << 8) + (RxData[ID * 2 - 1] << 0);
 		DAC_set_voltage(2.5 * current / 32768.0);
 		int32_t enc_val = Encoder_Read();
 
-		TxData[0] = (enc_val >> 24) & 0xff;
+		TxData[0] = (enc_val >> 24) & 0xff; //position32bit
 		TxData[1] = (enc_val >> 16) & 0xff;
 		TxData[2] = (enc_val >> 8) & 0xff;
 		TxData[3] = (enc_val >> 0) & 0xff;
 
-		TxData[4] = (adc2_value[0] >> 8) & 0xff;
+		TxData[4] = (adc2_value[0] >> 8) & 0xff; //current
 		TxData[5] = (adc2_value[0] >> 0) & 0xff;
 
-		TxData[6] = (adc1_value[1] >> 8) & 0xff;
+		TxData[6] = (adc1_value[1] >> 8) & 0xff; //voltage
 		TxData[7] = (adc1_value[1] >> 0) & 0xff;
 
 		CAN_Send();
