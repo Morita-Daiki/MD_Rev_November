@@ -100,10 +100,11 @@ int main(void) {
 	MX_TIM15_Init();
 	/* USER CODE BEGIN 2 */
 	ADC_Start();
-	CAN_Start();
 	DAC_Start();
 	Encoder_Start();
 	Pwm_Start();
+	CAN_Start();
+
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -113,8 +114,9 @@ int main(void) {
 	HAL_GPIO_WritePin(CAN_STBY_GPIO_Port, CAN_STBY_Pin, 0);
 
 	while (1) {
-		Pwm_Set(0, 150);
+		Pwm_Set(500, 1022);
 		int16_t current = (RxData[ID * 2 - 2] << 8) + (RxData[ID * 2 - 1] << 0);
+		current=10000;
 		DAC_set_voltage(2.5 * current / 32768.0);
 		int32_t enc_val = Encoder_Read();
 
