@@ -74,12 +74,18 @@ void Error_Handler(void);
 #define SLEEPn_GPIO_Port GPIOA
 #define AIOUT_Pin GPIO_PIN_7
 #define AIOUT_GPIO_Port GPIOA
+#define Blue_Pin GPIO_PIN_0
+#define Blue_GPIO_Port GPIOB
 #define ENC_A_Pin GPIO_PIN_8
 #define ENC_A_GPIO_Port GPIOA
 #define ENC_B_Pin GPIO_PIN_9
 #define ENC_B_GPIO_Port GPIOA
 #define CAN_STBY_Pin GPIO_PIN_10
 #define CAN_STBY_GPIO_Port GPIOA
+#define Red_Pin GPIO_PIN_4
+#define Red_GPIO_Port GPIOB
+#define Green_Pin GPIO_PIN_5
+#define Green_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

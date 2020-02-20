@@ -109,8 +109,11 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	int counter = 0;
+	HAL_GPIO_WritePin(SLEEPn_GPIO_Port, SLEEPn_Pin, 1);
+	HAL_GPIO_WritePin(CAN_STBY_GPIO_Port, CAN_STBY_Pin, 0);
+
 	while (1) {
-		Pwm_Set(1023, 1000);
+		Pwm_Set(0, 150);
 		int16_t current = (RxData[ID * 2 - 2] << 8) + (RxData[ID * 2 - 1] << 0);
 		DAC_set_voltage(2.5 * current / 32768.0);
 		int32_t enc_val = Encoder_Read();
@@ -125,10 +128,20 @@ int main(void) {
 
 		TxData[6] = (adc1_value[1] >> 8) & 0xff; //voltage
 		TxData[7] = (adc1_value[1] >> 0) & 0xff;
+//		TxData[0]=0xAA;
+//		TxData[1]=0xAB;
+//		TxData[2]=0xA9;
+//		TxData[3]=0xAA;
+//		TxData[4]=0xAA;
+//		TxData[5]=0xAB;
+//		TxData[6]=0xAB;
+//		TxData[7]=0xA9;
 
 		CAN_Send();
-		RGB_Set(abs(enc_val), counter, 500);
-		HAL_Delay(1);
+//		RGB_Set(abs(enc_val), counter, 500);
+		RGB_Set(500, 500, 500);
+
+		HAL_Delay(10);
 		counter++;
 		/* USER CODE END WHILE */
 

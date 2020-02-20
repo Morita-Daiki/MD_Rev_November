@@ -32,10 +32,10 @@ CAN_HandleTypeDef hcan;
 void MX_CAN_Init(void) {
 
 	hcan.Instance = CAN;
-	hcan.Init.Prescaler = 9;
+	hcan.Init.Prescaler = 4;
 	hcan.Init.Mode = CAN_MODE_NORMAL;
 	hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
-	hcan.Init.TimeSeg1 = CAN_BS1_6TQ;
+	hcan.Init.TimeSeg1 = CAN_BS1_7TQ;
 	hcan.Init.TimeSeg2 = CAN_BS2_1TQ;
 	hcan.Init.TimeTriggeredMode = DISABLE;
 	hcan.Init.AutoBusOff = DISABLE;
@@ -43,10 +43,25 @@ void MX_CAN_Init(void) {
 	hcan.Init.AutoRetransmission = DISABLE;
 	hcan.Init.ReceiveFifoLocked = DISABLE;
 	hcan.Init.TransmitFifoPriority = DISABLE;
+
 	if (HAL_CAN_Init(&hcan) != HAL_OK) {
 		Error_Handler();
 	}
+	CAN_FilterTypeDef sFilterConfig;
+	sFilterConfig.FilterBank = 0;
+	sFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;
+	sFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;
+	sFilterConfig.FilterIdHigh = RXID << 5;
+	sFilterConfig.FilterIdLow = RXID << 5;
+	sFilterConfig.FilterMaskIdHigh = RXID << 5;
+	sFilterConfig.FilterMaskIdLow = RXID << 5;
+	sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+	sFilterConfig.FilterActivation = ENABLE;
+	sFilterConfig.SlaveStartFilterBank = 14;
 
+	if (HAL_CAN_ConfigFilter(&hcan, &sFilterConfig) != HAL_OK) {
+		Error_Handler();
+	}
 }
 
 void HAL_CAN_MspInit(CAN_HandleTypeDef *canHandle) {
