@@ -35,7 +35,9 @@ extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim15;
 
 /* USER CODE BEGIN Private defines */
-
+extern TIM_Encoder_InitTypeDef sConfig;
+extern TIM_MasterConfigTypeDef sMasterConfig;
+extern TIM_OC_InitTypeDef sConfigOC;
 /* USER CODE END Private defines */
 
 void MX_TIM1_Init(void);

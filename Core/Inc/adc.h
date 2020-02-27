@@ -34,8 +34,11 @@ extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc2;
 
 /* USER CODE BEGIN Private defines */
-static uint16_t adc1_value[2];
-static uint16_t adc2_value[1];
+//extern ADC_ChannelConfTypeDef sConfig;
+//uint16_t adc1_value[2];
+//uint16_t adc2_value[1];
+uint32_t ADCValue[2];
+//static uint16_t adc_values[3];//pot,volt,current
 /* USER CODE END Private defines */
 
 void MX_ADC1_Init(void);

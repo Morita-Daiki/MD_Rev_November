@@ -106,7 +106,7 @@ void DAC_Set(uint16_t val) {
 	HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, val);
 }
 void DAC_set_voltage(double voltage) {
-	DAC_Set((uint16_t) voltage * (0xfff) / 3.3);
+	DAC_Set((uint16_t)( voltage * (0xfff) / 3.3));
 }
 /* USER CODE END 1 */
 

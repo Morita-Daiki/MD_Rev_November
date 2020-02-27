@@ -35,7 +35,7 @@ extern CAN_HandleTypeDef hcan;
 /* USER CODE BEGIN Private defines */
 extern CAN_TxHeaderTypeDef TxHeader;
 extern CAN_RxHeaderTypeDef RxHeader;
-#define ID 2
+#define ID 1
 #define TXID (0x200+ID)
 #define RXID ((ID <= 4) ? 0x200 : 0x1ff)
 
@@ -48,6 +48,7 @@ uint8_t cnt;
 void MX_CAN_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+void CAN_Filter_Init(void);
 void CAN_Start(void);
 void HAL_CAN_RXFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
 void CAN_Send(void);

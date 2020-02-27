@@ -23,7 +23,6 @@
 /* USER CODE BEGIN 0 */
 TIM_Encoder_InitTypeDef sConfig = { 0 };
 TIM_MasterConfigTypeDef sMasterConfig = { 0 };
-//TIM_MasterConfigTypeDef sMasterConfig = { 0 };
 TIM_OC_InitTypeDef sConfigOC = { 0 };
 /* USER CODE END 0 */
 
@@ -328,42 +327,31 @@ void Encoder_Start(void) {
 	TIM1->CNT = 30000;
 }
 void Pwm_Start(void) {
-	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1 | TIM_CHANNEL_2 | TIM_CHANNEL_3)
-			!= HAL_OK) {
+	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1) != HAL_OK) {
 		Error_Handler();
 	}
-	if (HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1 | TIM_CHANNEL_2) != HAL_OK) {
+	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2) != HAL_OK) {
 		Error_Handler();
 	}
 }
 void Pwm_Set(unsigned int in1, unsigned int in2) {
-	sConfigOC.Pulse = in1;
-	if (HAL_TIM_PWM_ConfigChannel(&htim15, &sConfigOC, TIM_CHANNEL_1)
-			!= HAL_OK) {
-		Error_Handler();
-	}
-	sConfigOC.Pulse = in2;
-	if (HAL_TIM_PWM_ConfigChannel(&htim15, &sConfigOC, TIM_CHANNEL_2)
-			!= HAL_OK) {
-		Error_Handler();
-	}
+	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, in1);
+	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_2, in2);
 }
 void RGB_Set(unsigned int r, unsigned int g, unsigned int b) {
-	sConfigOC.Pulse = r;
-	if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1)
-			!= HAL_OK) {
-		Error_Handler();
-	}
-	sConfigOC.Pulse = g;
-	if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2)
-			!= HAL_OK) {
-		Error_Handler();
-	}
-	sConfigOC.Pulse = b;
-	if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_3)
-			!= HAL_OK) {
-		Error_Handler();
-	}
+	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, r);
+	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, g);
+	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, b);
+
 }
 int32_t Encoder_Read(void) {
 	static int32_t val;

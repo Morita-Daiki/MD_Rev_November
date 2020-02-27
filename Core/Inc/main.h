@@ -58,8 +58,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define RVIN_Pin GPIO_PIN_0
-#define RVIN_GPIO_Port GPIOA
 #define Voltage_Pin GPIO_PIN_1
 #define Voltage_GPIO_Port GPIOA
 #define IN1_Pin GPIO_PIN_2
