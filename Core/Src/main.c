@@ -133,11 +133,11 @@ int main(void)
 
 		int16_t cur = (RxData[ID * 2 - 2] << 8) + (RxData[ID * 2 - 1] << 0);
 		double current = (double) cur;
-
+		double current2=1023.0-current/0x7fff*1023.0;
 		if (current > 0.0)
-			Pwm_Set(900, 1023);
+			Pwm_Set(current2, 1023);
 		else if (current < 0.0) {
-			Pwm_Set(1023, 900);
+			Pwm_Set(1023, -current2);
 			current = -current;
 		} else
 			Pwm_Set(1023, 1023);
