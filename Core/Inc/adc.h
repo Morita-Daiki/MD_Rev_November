@@ -37,7 +37,10 @@ extern ADC_HandleTypeDef hadc2;
 //extern ADC_ChannelConfTypeDef sConfig;
 //uint16_t adc1_value[2];
 //uint16_t adc2_value[1];
-uint32_t ADCValue[2];
+//uint32_t ADCValue[2];
+enum{LENGTH=8};
+uint16_t ADCBuffer1[LENGTH];
+uint16_t ADCBuffer2[LENGTH];
 //static uint16_t adc_values[3];//pot,volt,current
 /* USER CODE END Private defines */
 

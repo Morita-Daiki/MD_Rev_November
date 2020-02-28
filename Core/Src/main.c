@@ -92,12 +92,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ADC1_Init();
   MX_ADC2_Init();
   MX_CAN_Init();
   MX_DAC1_Init();
   MX_TIM1_Init();
-  MX_DMA_Init();
   MX_TIM3_Init();
   MX_TIM15_Init();
   /* USER CODE BEGIN 2 */
@@ -129,11 +129,9 @@ int main(void)
 	HAL_GPIO_WritePin(CAN_STBY_GPIO_Port, CAN_STBY_Pin, 0);
 
 	while (1) {
-//		Pwm_Set(10, 0);
-
 		int16_t cur = (RxData[ID * 2 - 2] << 8) + (RxData[ID * 2 - 1] << 0);
 		double current = (double) cur;
-		double current2=1023.0-current/0x7fff*1023.0;
+		double current2 = 1023.0 - current / 0x7fff * 1023.0;
 		if (current > 0.0)
 			Pwm_Set(current2, 1023);
 		else if (current < 0.0) {
@@ -149,13 +147,21 @@ int main(void)
 		TxData[2] = (enc_val >> 8) & 0xff;
 		TxData[3] = (enc_val >> 0) & 0xff;
 
+		TxData[4] = (ADCBuffer1[1] >> 8) & 0xff;//voltage
+		TxData[5] = (ADCBuffer1[1] >> 0) & 0xff;
+
+		TxData[6] = (ADCBuffer2[0] >> 8) & 0xff;//current
+		TxData[7] = (ADCBuffer2[0] >> 0) & 0xff;
+
+		ADCBuffer1;
+		ADCBuffer2;
 //		uint16_t voltage = ADCValue[0];
 //		uint16_t aiout = ADCValue[1];
-		TxData[4] = (ADCValue[1] >> 8) & 0xff; //current
-		TxData[5] = (ADCValue[1] >> 0) & 0xff;
-
-		TxData[6] = (ADCValue[0] >> 8) & 0xff; //voltage
-		TxData[7] = (ADCValue[0] >> 0) & 0xff;
+//		TxData[4] = (ADCValue[1] >> 8) & 0xff; //current
+//		TxData[5] = (ADCValue[1] >> 0) & 0xff;
+//
+//		TxData[6] = (ADCValue[0] >> 8) & 0xff; //voltage
+//		TxData[7] = (ADCValue[0] >> 0) & 0xff;
 //		TxData[0]=0xAA;
 //		TxData[1]=0xAB;
 //		TxData[2]=0xA9;
